@@ -6,16 +6,6 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  // const productTest: Product = {
-  //   id: "1",
-  //   name: "Processador AMD Ryzen 5 5600X, 3.7GHz (4.6GHz Turbo), 6-Cores 12-Threads, Cooler Wraith Stealth, AM4",
-  //   description:
-  //     "O processador AMD Ryzen 5 5600X é uma excelente opção para quem busca desempenho e eficiência em jogos e tarefas do dia a dia. Com 6 núcleos e 12 threads, ele oferece um desempenho excepcional em multitarefas e jogos exigentes.",
-  //   price: 1199.0,
-  //   category: "Processadores",
-  //   imageUrl: "src/assets/products/ryzen-5-5600.jpg",
-  // };
-
   const formatter: Intl.NumberFormat = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -24,7 +14,7 @@ function ProductCard({ product }: ProductCardProps) {
   });
 
   return (
-    <div className="flex flex-col rounded-lg shadow-lg bg-white p-4 m-4 h-80 w-64 flex-shrink-0">
+    <div className="flex flex-col rounded-lg bg-white p-4 m-4 h-80 w-64 flex-shrink-0 shadow-[8px_8px_18px_0px_rgba(251,191,36,0.5)] hover:shadow-[16px_16px_24px_0px_rgba(251,191,36,0.7)]">
       <img
         src={product.imageUrl}
         alt={product.name}

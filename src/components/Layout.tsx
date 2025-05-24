@@ -11,7 +11,7 @@ function Layout({ children }: LayoutProps) {
         <div className="flex-shrink-0">
           <TopBar />
         </div>
-        <div className="overflow-y-auto flex-1 p-5">{children}</div>
+        <div className="overflow-y-auto flex-1 p-8">{children}</div>
       </div>
     </>
   );

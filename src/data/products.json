@@ -7,7 +7,7 @@
         "description": "O processador AMD Ryzen 5 5600X é uma excelente opção para quem busca desempenho e eficiência em jogos e tarefas do dia a dia.",
         "price": 1199.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/ryzen-5-5600.jpg"
+        "imageUrl": "src/assets/products/processors/ryzen-5-5600.jpg"
       },
       {
         "id": "proc-2",
