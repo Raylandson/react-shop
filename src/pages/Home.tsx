@@ -1,26 +1,26 @@
 import Layout from "../components/Layout";
-import ProductCard from "../components/ProductCard";
+import ProductList from "../components/ProductList";
+import { getProductsByCategory } from "../utils/productUtils";
 
 function Home() {
   return (
     <>
       <Layout>
-        <h1 className="text-4xl text-white font-bold">Home Page</h1>
-        <div className="flex flex-nowrap overflow-x-scroll scrollbar-hide w-full">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+        <div className="gap-5 flex flex-col items-center justify-center">
+          <ProductList
+            title="Processadores"
+            products={getProductsByCategory("processors")}
+          />
+
+          <ProductList
+            title="Memórias"
+            products={getProductsByCategory("memory")}
+          />
+
+          <ProductList
+            title="Placas de Vídeo"
+            products={getProductsByCategory("graphics")}
+          />
         </div>
       </Layout>
     </>

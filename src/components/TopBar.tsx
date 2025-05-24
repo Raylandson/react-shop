@@ -8,7 +8,7 @@ function TopBar() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-sky-300 p-4 shadow-md z-index-10">
+    <nav className="bg-sky-300 p-4 shadow-md">
       <div className="flex items-center justify-between">
         <button
           onClick={() => navigate("/")}

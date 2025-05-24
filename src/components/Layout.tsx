@@ -7,11 +7,11 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <>
-      <div className="fixed inset-0 flex flex-col bg-sky-950 pt-8">
-        <div className="flex flex-col">
-          <TopBar></TopBar>
+      <div className="fixed inset-0 flex flex-col bg-sky-950">
+        <div className="flex-shrink-0">
+          <TopBar />
         </div>
-        <div className="mt-16 overflow-y-auto">{children}</div>
+        <div className="overflow-y-auto flex-1 p-5">{children}</div>
       </div>
     </>
   );

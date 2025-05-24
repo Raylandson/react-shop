@@ -1,15 +1,20 @@
 import { ShoppingCart } from "lucide-react";
 import type { Product } from "../types/Product";
 
-function ProductCard() {
-  const productTest: Product = {
-    id: "1",
-    name: "Processador AMD Ryzen 5 5600X, 3.7GHz (4.6GHz Turbo), 6-Cores 12-Threads, Cooler Wraith Stealth, AM4",
-    description:
-      "O processador AMD Ryzen 5 5600X é uma excelente opção para quem busca desempenho e eficiência em jogos e tarefas do dia a dia. Com 6 núcleos e 12 threads, ele oferece um desempenho excepcional em multitarefas e jogos exigentes.",
-    price: 1199.0,
-    imageUrl: "src/assets/products/ryzen-5-5600.jpg",
-  };
+interface ProductCardProps {
+  product: Product;
+}
+
+function ProductCard({ product }: ProductCardProps) {
+  // const productTest: Product = {
+  //   id: "1",
+  //   name: "Processador AMD Ryzen 5 5600X, 3.7GHz (4.6GHz Turbo), 6-Cores 12-Threads, Cooler Wraith Stealth, AM4",
+  //   description:
+  //     "O processador AMD Ryzen 5 5600X é uma excelente opção para quem busca desempenho e eficiência em jogos e tarefas do dia a dia. Com 6 núcleos e 12 threads, ele oferece um desempenho excepcional em multitarefas e jogos exigentes.",
+  //   price: 1199.0,
+  //   category: "Processadores",
+  //   imageUrl: "src/assets/products/ryzen-5-5600.jpg",
+  // };
 
   const formatter: Intl.NumberFormat = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -26,16 +31,16 @@ function ProductCard() {
         className="h-40 w-full object-cover rounded-t-lg"
       />
       <h2 className="text-lg font-bold text-sky-950 line-clamp-2">
-        {productTest.name}
+        {product.name}
       </h2>
       {/* <p>Description of the product.</p> */}
       <div className="flex justify-between items-center mt-4">
         <div>
           <p className="text-lime-600 font-bold">
-            R$ {formatter.format(productTest.price)} á vista
+            R$ {formatter.format(product.price)} á vista
           </p>
           <p className="text-sm text-gray-500">
-            Em até 12x de R$ {formatter.format(productTest.price / 12)}
+            Em até 12x de R$ {formatter.format(product.price / 12)}
           </p>
         </div>
         <button>
