@@ -15,7 +15,7 @@
         "description": "Processador Intel de 12ª geração com excelente custo-benefício para gamers.",
         "price": 1099.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/i5-12400f.jpg"
+        "imageUrl": "src/assets/products/processors/i5-12400f.webp"
       },
       {
         "id": "proc-3",
@@ -23,7 +23,7 @@
         "description": "Processador de alto desempenho para multitarefas e jogos pesados.",
         "price": 1799.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/ryzen-7-5800x.jpg"
+        "imageUrl": "src/assets/products/processors/ryzen-7-7800x.webp"
       },
       {
         "id": "proc-4",
@@ -31,7 +31,7 @@
         "description": "Processador topo de linha para entusiastas e criadores de conteúdo.",
         "price": 2499.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/i7-12700k.jpg"
+        "imageUrl": "src/assets/products/processors/i7-12700K.jpg"
       },
       {
         "id": "proc-5",
@@ -39,7 +39,7 @@
         "description": "Processador premium para tarefas exigentes e jogos.",
         "price": 2999.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/ryzen-9-5900x.jpg"
+        "imageUrl": "src/assets/products/processors/Ryzen-9-5900X.webp"
       },
       {
         "id": "proc-6",
@@ -47,7 +47,7 @@
         "description": "Ótima opção de entrada para PCs básicos e gamers casuais.",
         "price": 699.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/i3-12100f.jpg"
+        "imageUrl": "src/assets/products/processors/i3-12100F.webp"
       },
       {
         "id": "proc-7",
@@ -55,7 +55,7 @@
         "description": "Processador econômico para tarefas do dia a dia.",
         "price": 499.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/ryzen-3-4100.jpg"
+        "imageUrl": "src/assets/products/processors/Ryzen-3-4100.jpg"
       },
       {
         "id": "proc-8",
@@ -63,7 +63,7 @@
         "description": "Processador de altíssimo desempenho para profissionais.",
         "price": 3999.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/i9-12900k.jpg"
+        "imageUrl": "src/assets/products/processors/i9-12900K.webp"
       },
       {
         "id": "proc-9",
@@ -71,7 +71,7 @@
         "description": "Processador popular para gamers e criadores de conteúdo.",
         "price": 899.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/ryzen-5-3600.jpg"
+        "imageUrl": "src/assets/products/processors/ryzen-5-5600.jpg"
       },
       {
         "id": "proc-10",
@@ -79,7 +79,7 @@
         "description": "Processador básico para tarefas simples e escritórios.",
         "price": 349.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/pentium-g6400.jpg"
+        "imageUrl": "src/assets/products/processors/Pentium-Gold-G6400.png"
       },
       {
         "id": "proc-11",
@@ -87,7 +87,7 @@
         "description": "Processador com vídeo integrado para PCs compactos.",
         "price": 1599.0,
         "category": "Processadores",
-        "imageUrl": "src/assets/products/ryzen-7-5700g.jpg"
+        "imageUrl": "src/assets/products/processors/Ryzen-7-5700G.jpg"
       }
     ],
     "memory": [
@@ -97,7 +97,7 @@
         "description": "Memória RAM de alta performance para jogos.",
         "price": 299.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/corsair-vengeance.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Corsair Vengeance RGB 16GB.webp"
       },
       {
         "id": "mem-2",
@@ -105,7 +105,7 @@
         "description": "Memória DDR4 com alta velocidade e confiabilidade.",
         "price": 279.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/kingston-fury-beast.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Kingston Fury Beast 16GB.webp"
       },
       {
         "id": "mem-3",
@@ -113,7 +113,7 @@
         "description": "Ideal para upgrades rápidos e eficientes.",
         "price": 149.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/crucial-ballistix.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Crucial Ballistix 8GB.jpg"
       },
       {
         "id": "mem-4",
@@ -121,7 +121,7 @@
         "description": "Memória premium para entusiastas e overclockers.",
         "price": 599.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/gskill-tridentz.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM G.Skill Trident Z RGB 32GB.jpg"
       },
       {
         "id": "mem-5",
@@ -129,7 +129,7 @@
         "description": "Desempenho extremo para workstations.",
         "price": 649.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/corsair-dominator.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Corsair Dominator Platinum 32GB.webp"
       },
       {
         "id": "mem-6",
@@ -137,7 +137,7 @@
         "description": "Memória confiável para uso diário.",
         "price": 139.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/hyperx-fury.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Kingston Fury Beast 16GB.webp"
       },
       {
         "id": "mem-7",
@@ -145,7 +145,7 @@
         "description": "Ótima opção para gamers e profissionais.",
         "price": 269.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/teamgroup-vulcan.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM TeamGroup T-Force Vulcan Z 16GB.jpg"
       },
       {
         "id": "mem-8",
@@ -153,7 +153,7 @@
         "description": "Performance e estabilidade para qualquer sistema.",
         "price": 259.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/patriot-viper.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Patriot Viper Steel 16GB.webp"
       },
       {
         "id": "mem-9",
@@ -161,7 +161,7 @@
         "description": "Design inovador com iluminação RGB.",
         "price": 319.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/xpg-d60g.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM XPG Spectrix D60G 16GB.webp"
       },
       {
         "id": "mem-10",
@@ -169,7 +169,7 @@
         "description": "Solução econômica para upgrades básicos.",
         "price": 119.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/corsair-valueselect.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Corsair ValueSelect 8GB.webp"
       },
       {
         "id": "mem-11",
@@ -177,7 +177,7 @@
         "description": "Alta performance para gamers exigentes.",
         "price": 289.0,
         "category": "Memórias",
-        "imageUrl": "src/assets/products/geil-evo-potenza.jpg"
+        "imageUrl": "src/assets/products/memory/Memória RAM Geil Evo Potenza 16GB.webp"
       }
     ],
     "graphics": [
@@ -187,7 +187,7 @@
         "description": "Placa de vídeo para jogos em alta performance.",
         "price": 2999.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rtx-3060-ti.jpg"
+        "imageUrl": "src/assets/products/graphics/RTX 3060 Ti.png"
       },
       {
         "id": "gpu-2",
@@ -195,7 +195,7 @@
         "description": "Placa de vídeo potente para jogos em 1440p.",
         "price": 3999.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rtx-3070.jpg"
+        "imageUrl": "src/assets/products/graphics/NVIDIA GeForce RTX 3070.webp"
       },
       {
         "id": "gpu-3",
@@ -203,7 +203,7 @@
         "description": "Excelente desempenho em jogos AAA.",
         "price": 3499.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rx-6700xt.jpg"
+        "imageUrl": "src/assets/products/graphics/AMD Radeon RX 6700 XT.webp"
       },
       {
         "id": "gpu-4",
@@ -211,7 +211,7 @@
         "description": "Ótima opção para gamers de entrada.",
         "price": 1599.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/gtx-1660-super.jpg"
+        "imageUrl": "src/assets/products/graphics/NVIDIA GeForce GTX 1660 Super.jpg"
       },
       {
         "id": "gpu-5",
@@ -219,7 +219,7 @@
         "description": "Placa de vídeo eficiente para Full HD.",
         "price": 1999.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rx-6600.jpg"
+        "imageUrl": "src/assets/products/graphics/AMD Radeon RX 6600.jpg"
       },
       {
         "id": "gpu-6",
@@ -227,7 +227,7 @@
         "description": "Desempenho extremo para 4K gaming.",
         "price": 5999.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rtx-3080.jpg"
+        "imageUrl": "src/assets/products/graphics/NVIDIA GeForce RTX 3080.webp"
       },
       {
         "id": "gpu-7",
@@ -235,7 +235,7 @@
         "description": "Placa de vídeo topo de linha da AMD.",
         "price": 4999.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rx-6800xt.jpg"
+        "imageUrl": "src/assets/products/graphics/AMD Radeon RX 6800 XT.jpg"
       },
       {
         "id": "gpu-8",
@@ -243,7 +243,7 @@
         "description": "Boa opção para gamers casuais.",
         "price": 1799.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rtx-3050.jpg"
+        "imageUrl": "src/assets/products/graphics/NVIDIA GeForce RTX 3050.webp"
       },
       {
         "id": "gpu-9",
@@ -251,7 +251,7 @@
         "description": "Placa de vídeo acessível para PCs básicos.",
         "price": 1299.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rx-6500xt.jpg"
+        "imageUrl": "src/assets/products/graphics/AMD Radeon RX 6500 XT.jpg"
       },
       {
         "id": "gpu-10",
@@ -259,7 +259,7 @@
         "description": "Placa de vídeo clássica para jogos leves.",
         "price": 899.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/gtx-1050ti.jpg"
+        "imageUrl": "src/assets/products/graphics/NVIDIA GeForce GTX 1050 Ti.jpg"
       },
       {
         "id": "gpu-11",
@@ -267,7 +267,7 @@
         "description": "Opção econômica para tarefas básicas e multimídia.",
         "price": 599.0,
         "category": "Placas de Vídeo",
-        "imageUrl": "src/assets/products/rx-550.jpg"
+        "imageUrl": "src/assets/products/graphics/AMD Radeon RX 550.webp"
       }
     ]
   }

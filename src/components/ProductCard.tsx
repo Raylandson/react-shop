@@ -24,11 +24,11 @@ function ProductCard({ product }: ProductCardProps) {
   });
 
   return (
-    <div className="flex flex-col rounded-lg shadow-lg bg-cyan-100 p-4 m-4 h-80 w-64 flex-shrink-0">
+    <div className="flex flex-col rounded-lg shadow-lg bg-white p-4 m-4 h-80 w-64 flex-shrink-0">
       <img
-        src="src/assets/products/ryzen-5-5600.jpg"
-        alt="AMD Ryzen 5 5600X"
-        className="h-40 w-full object-cover rounded-t-lg"
+        src={product.imageUrl}
+        alt={product.name}
+        className="h-40 w-full object-contain rounded-t-lg mb-2"
       />
       <h2 className="text-lg font-bold text-sky-950 line-clamp-2">
         {product.name}
