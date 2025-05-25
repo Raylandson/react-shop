@@ -2,6 +2,10 @@
 
 A modern e-commerce platform built with React, TypeScript, and Vite. This project demonstrates a simple yet functional shopping experience with features like product browsing, cart management, and product details.
 
+## 🌐 Live Demo
+
+The project is deployed with Vercel and can be accessed at: [https://react-shop-lake-ten.vercel.app/](https://react-shop-lake-ten.vercel.app/)
+
 ## 🚀 Features
 
 - Browse products on the home page
