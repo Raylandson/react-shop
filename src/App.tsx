@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 // import { getProductById } from "./utils/productUtils";
 
 function App() {
-  // const productTest = getProductById("proc-1") as Product;
+  // const productTest = getProductById("proc-3") as Product;
 
   return (
     <>

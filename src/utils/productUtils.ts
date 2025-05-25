@@ -28,7 +28,8 @@ export const searchProducts = (query: string): Product[] => {
   return allProducts.filter(
     (product) =>
       product.name.toLowerCase().includes(searchTerm) ||
-      product.description.toLowerCase().includes(searchTerm)
+      product.description.toLowerCase().includes(searchTerm) ||
+      product.category.toLowerCase().includes(searchTerm)
   );
 };
 
