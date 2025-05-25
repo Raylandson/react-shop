@@ -1,3 +1,4 @@
+import { useState, useRef, type MouseEvent } from "react";
 import {
   Banknote,
   CalendarCheck,
@@ -6,15 +7,58 @@ import {
   Sparkles,
 } from "lucide-react";
 import Layout from "../components/Layout";
-// import type { Product } from "../types/Product";
 import { formatPrice, getProductById } from "../utils/productUtils";
 import { useSearchParams } from "react-router-dom";
 
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  details: Array<Record<string, string>>;
+}
+
 function ProductDetail() {
-  // const { id } = useParams<{ id: string }>();
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get("id") || "";
-  const product = getProductById(id);
+  const product = getProductById(id) as Product | undefined;
+
+  const [isZooming, setIsZooming] = useState(false);
+  const [transformOrigin, setTransformOrigin] = useState("center center");
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+
+  const zoomLevel = 1.75;
+
+  const handleMouseEnterImage = () => {
+    // Ativa o zoom quando o mouse entra
+    setIsZooming(true);
+  };
+
+  const handleMouseLeaveImage = () => {
+    setIsZooming(false);
+    setTransformOrigin("center center");
+  };
+
+  const handleMouseMoveImage = (e: MouseEvent<HTMLDivElement>) => {
+    if (!imageContainerRef.current) return;
+
+    if (!isZooming) {
+      setIsZooming(true);
+    }
+
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    let percX = (x / rect.width) * 100;
+    let percY = (y / rect.height) * 100;
+
+    percX = Math.max(0, Math.min(100, percX));
+    percY = Math.max(0, Math.min(100, percY));
+
+    setTransformOrigin(`${percX}% ${percY}%`);
+  };
 
   if (!product) {
     return (
@@ -32,13 +76,25 @@ function ProductDetail() {
     <Layout>
       <div className="text-white flex flex-col">
         <div className="flex gap-10 ml-20 mr-20">
-          <div className="bg-white rounded justify-center flex w-2/3">
+          <div
+            ref={imageContainerRef}
+            className="bg-white rounded justify-center flex items-center w-2/3 overflow-hidden cursor-zoom-in relative"
+            onMouseEnter={handleMouseEnterImage}
+            onMouseLeave={handleMouseLeaveImage}
+            onMouseMove={handleMouseMoveImage}
+          >
             <img
-              className="w-[60vw] max-w-[60%] h-full object-contain rounded"
+              className="w-[60vw] max-w-[60%] h-full object-contain rounded transition-transform duration-100 ease-out"
               src={product.imageUrl}
               alt={product.name}
+              style={{
+                transform: isZooming ? `scale(${zoomLevel})` : "scale(1)",
+                transformOrigin: transformOrigin,
+              }}
             />
           </div>
+
+          {/* O restante do seu código para detalhes do produto permanece o mesmo */}
           <div className=" w-1/3 space-y-4 bg-amber-50 text-[#1F2937] p-15 rounded flex flex-col h-auto">
             <div className="flex p-0 items-center mb-0">
               <Sparkles className="text-amber-600 w-4 h-4" />
@@ -78,17 +134,10 @@ function ProductDetail() {
             </button>
           </div>
         </div>
-        <div className="ml-25 mt-15 text-center flex flex-col gap-10 mr-25">
-          {/* <h1 className="text-4xl font-bold mb-4">Especificações</h1>
-          <ul className="list-disc list-inside">
-            {product.details.map((spec, index) => (
-              <li key={index} className="text-lg">
-                {spec}
-              </li>
-            ))}
-          </ul> */}
-          <h1 className="text-center font-bold text-4xl">Especificações</h1>
 
+        {/* Div de especificações - NÃO FOI ALTERADO */}
+        <div className="ml-25 mt-15 text-center flex flex-col gap-10 mr-25">
+          <h1 className="text-center font-bold text-4xl">Especificações</h1>
           <table className="w-full">
             <tbody>
               {product.details.map((detail, idx) =>
