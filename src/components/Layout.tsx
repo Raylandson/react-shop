@@ -7,7 +7,7 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <>
-      <div className="fixed inset-0 flex flex-col bg-sky-950">
+      <div className="fixed inset-0 flex flex-col bg-[#0D1B2A]">
         <div className="flex-shrink-0">
           <TopBar />
         </div>

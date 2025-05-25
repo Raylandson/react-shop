@@ -39,14 +39,14 @@ function ProductDetail() {
               alt={product.name}
             />
           </div>
-          <div className=" w-1/3 space-y-4 bg-amber-50 text-black p-15 rounded flex flex-col h-auto">
+          <div className=" w-1/3 space-y-4 bg-amber-50 text-[#1F2937] p-15 rounded flex flex-col h-auto">
             <div className="flex p-0 items-center mb-0">
               <Sparkles className="text-amber-600 w-4 h-4" />
               <p className="ml-2 text-xs"> NOVO </p>
               <CalendarCheck className="text-amber-600 w-4 h-4 ml-2" />
               <p className="ml-2 text-xs"> 22 meses de garantia </p>
             </div>
-            <h2 className="text-2xl font-semibold text-left mt-0">
+            <h2 className="text-2xl font-semibold text-left mt-0 text-[#1F2937]">
               {product.name}
             </h2>
             <p className="text-lg text-gray-500 text-left">
@@ -61,13 +61,13 @@ function ProductDetail() {
                 <p className="text-xl font-bold">
                   {formatPrice(product.price)}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[#6B7280]">
                   Em até 12x de R$ {formatPrice(product.price / 12)}
                 </p>
               </div>
             </div>
             <div className="flex-1" />
-            <button className="rounded bg-amber-300 w-full p-1 hover:bg-amber-500 flex justify-center">
+            <button className="rounded bg-[#FFC107] w-full p-1 hover:bg-amber-500 flex justify-center">
               <div className="flex items-center gap-5">
                 <ShoppingCart className="mx-auto mb-2" />
                 <div className="flex flex-col items-center mb-2">

@@ -27,7 +27,7 @@ function ProductCard({ product }: ProductCardProps) {
       <h2 className="text-lg font-bold text-sky-950 line-clamp-2">
         {product.name}
       </h2>
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex justify-between items-center mt-auto">
         <div>
           <p className="text-lime-600 font-bold">
             R$ {formatPrice(product.price)} á vista
