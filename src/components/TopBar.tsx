@@ -1,8 +1,16 @@
+// src/components/TopBar.tsx (ou caminho similar)
+
 import { ShoppingCart, User, Search, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+// A importação de CartItem aqui pode não ser mais necessária se você não a usa diretamente
+import { useCartContext } from "../contexts/CartContext"; // Ajuste o caminho se necessário
+
+// A função calculateItemCount local não é mais necessária aqui, pois usaremos getItemCount do contexto.
 
 export function TopBar() {
-  const itemCountInCart = 3;
+  const { getItemCount } = useCartContext();
+
+  const itemCountInCart = getItemCount();
 
   return (
     <nav className="bg-fundo-principal text-white shadow-lg sticky top-0 z-50">
@@ -30,13 +38,13 @@ export function TopBar() {
                 <Search className="h-5 w-5 text-gray-400" />
               </div>
             </div>
-            <Link
-              to="/"
+            {/* Transformado em botão para ação que não é primariamente navegação */}
+            <button
               className="p-1 rounded-full hover:bg-gray-700 transition-colors duration-200"
-              aria-label="Perfil"
+              aria-label="Ação de Teste no Perfil" // Ajuste o aria-label
             >
               <User size={22} />
-            </Link>
+            </button>
             <Link
               to="/cart"
               className="relative p-1 rounded-full hover:bg-gray-700 transition-colors duration-200"

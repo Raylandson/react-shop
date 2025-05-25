@@ -3,16 +3,27 @@ import type { Product } from "../types/Product";
 import { formatPrice } from "../utils/productUtils";
 
 interface ProductCartCardProps {
-  product: Product;
+  product: Product | undefined;
+  productQuantity: number;
   onRemoveClicked?: (productId: string) => void;
+  onMinusClicked?: (productId: string) => void;
+  onPlusClicked?: (productId: string) => void;
 }
 
-function ProductCartCard({ product, onRemoveClicked }: ProductCartCardProps) {
+function ProductCartCard({
+  product,
+  onRemoveClicked,
+  productQuantity,
+  onMinusClicked,
+  onPlusClicked,
+}: ProductCartCardProps) {
+  if (!product) return null;
+
   return (
     <tr>
       <td className="py-2 px-4 border-b">
         <div className="flex gap-10">
-          <img className="h-20 w-20" src={product.imageUrl}></img>
+          <img className="h-20 w-20" src={product.imageUrl} />
           <h2 className="text-black self-center line-clamp-2">
             {product.name}
           </h2>
@@ -20,14 +31,19 @@ function ProductCartCard({ product, onRemoveClicked }: ProductCartCardProps) {
       </td>
       <td className="py-2 px-4 border-b">
         <div className="gap-2 flex items-center justify-center">
-          <button>
-            <Plus size={20} className="text-sky-500 hover:text-sky-700" />
-          </button>
-          1
-          <button>
-            <Minus
+          <button className="hover:bg-gray-400 rounded-full transition-colors">
+            <Plus
+              onClick={() => onPlusClicked?.(product.id)}
               size={20}
-              className="text-sky-500 hover:text-sky-700 self-center"
+              className="text-blue-500 hover:text-sky-700 rounded-full"
+            />
+          </button>
+          {productQuantity}
+          <button className="hover:bg-gray-400 rounded-full transition-colors">
+            <Minus
+              onClick={() => onMinusClicked?.(product.id)}
+              size={20}
+              className="text-blue-500 hover:text-sky-700 rounded-full"
             />
           </button>
         </div>

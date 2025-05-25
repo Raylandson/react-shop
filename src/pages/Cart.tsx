@@ -1,59 +1,53 @@
+// src/pages/Cart.tsx ou similar
+
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
-import type { Product } from "../types/Product";
-import ProductCartCard from "../components/ProductCartCard";
+import ProductCartCard from "../components/ProductCartCard"; // Você precisará adaptar este componente
 import { formatPrice, getProductById } from "../utils/productUtils";
-import { useCallback, useEffect, useState, type JSX } from "react";
+import { useCartContext, type CartItem } from "../contexts/CartContext"; // Importe do seu contexto
 
 function Cart() {
   const navigate = useNavigate();
-  // const productTest: Product = getProductById("proc-1") as Product;
-  const deliveryPrice: number = 15;
-  const [cartProducts, setCartProducts] = useState<Product[]>([
-    getProductById("proc-1") as Product,
-    getProductById("mem-1") as Product,
-    getProductById("gpu-1") as Product,
-    getProductById("proc-2") as Product,
-  ]);
+  const {
+    cartItems,
+    removeItem,
+    updateItemQuantity, // Usaremos para ProductCartCard
+    // getItemCount, // Se precisar do total de unidades
+    // clearCart, // Se tiver um botão de limpar carrinho
+  } = useCartContext();
 
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const deliveryPricePerItemType: number = 15; // Ou como você calcular o frete
 
-  function onRemoveProduct(productId: string): void {
-    const updatedCart = cartProducts.filter(
-      (product) => product.id !== productId
-    );
-    setCartProducts(updatedCart);
-  }
+  // Calcula o subtotal dos produtos no carrinho
+  const subTotal = cartItems.reduce(
+    (acc, item) => acc + (getProductById(item.id)?.price ?? 0) * item.quantity,
+    0
+  );
 
-  const updateTotalPrice = useCallback(() => {
-    const total = cartProducts.reduce(
-      (acc: number, product: Product) => acc + product.price,
-      0
-    );
-    setTotalPrice(total);
-  }, [cartProducts]);
+  // Calcula o frete (exemplo: por tipo de item diferente no carrinho)
+  // Se o carrinho estiver vazio, o frete é 0
+  const shippingCost =
+    cartItems.length > 0 ? cartItems.length * deliveryPricePerItemType : 0;
+  // Ou, se for um valor fixo quando há itens:
+  // const shippingCost = cartItems.length > 0 ? deliveryPrice : 0;
 
-  useEffect(() => {
-    const cart = localStorage.getItem("cart");
-    if (cart) {
-      const cartProducts = JSON.parse(cart);
-      const products = cartProducts.map(
-        (productId: string) => getProductById(productId) as Product
-      );
-      setCartProducts(products);
-    }
-  }, []);
+  const totalFinal = subTotal + shippingCost;
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartProducts.map((p) => p.id)));
-    updateTotalPrice();
-  }, [cartProducts, totalPrice, updateTotalPrice]);
+  // A função onRemoveProduct agora usa 'removeItem' do contexto
+  // Esta função pode ser passada diretamente para ProductCartCard ou chamada aqui
+  // Por simplicidade, passaremos 'removeItem' diretamente.
 
-  function renderCart(): JSX.Element {
-    if (cartProducts.length === 0) {
+  function renderCart() {
+    if (cartItems.length === 0) {
       return (
         <div className="flex flex-col items-center justify-center h-full mt-44">
           <h2 className="text-2xl text-white">Seu carrinho está vazio</h2>
+          <button
+            onClick={() => navigate("/")}
+            className="mt-4 px-6 py-2 bg-amber-400 text-sky-950 font-semibold rounded hover:bg-amber-500 transition-colors"
+          >
+            Continuar Comprando
+          </button>
         </div>
       );
     }
@@ -61,46 +55,68 @@ function Cart() {
       <>
         <button
           onClick={() => navigate("/")}
-          className="text-xs self-start text-white px-4 py-2  hover:text-amber-300"
+          className="text-xs self-start text-white px-4 py-2 mb-4 hover:text-amber-300 transition-colors"
         >
-          {"< Voltar para página inicial"}
+          {"< Continuar comprando"}
         </button>
-        <div className="overflow-x-auto flex gap-5">
-          <table className="w-3/4 bg-white table-fixed rounded h-fit ">
+        <div className="overflow-x-auto flex flex-col lg:flex-row gap-5">
+          <table className="w-full lg:w-3/4 bg-white table-fixed rounded h-fit shadow-lg">
             <colgroup>
-              <col style={{ width: "60%" }} />
-              <col style={{ width: "19%" }} />
-              <col style={{ width: "17%" }} />
-              <col style={{ width: "5%" }} />
+              <col style={{ width: "55%" }} /> {/* Produto */}
+              <col style={{ width: "20%" }} /> {/* Quantidade */}
+              <col style={{ width: "20%" }} /> {/* Preço Total do Item */}
+              <col style={{ width: "5%" }} /> {/* Remover */}
             </colgroup>
             <thead>
-              <tr className="self-start text-center ">
-                <th className="py-2 px-4 border-b text-left">Produto</th>
-                <th className="py-2 px-4 border-b">Quantidade</th>
-                <th className="py-2 px-4 border-b">Preço</th>
-                <th className="py-2 px-4 border-b"></th>
+              <tr className="text-center border-b">
+                <th className="py-3 px-4 text-left font-semibold text-gray-700">
+                  Produto
+                </th>
+                <th className="py-3 px-4 font-semibold text-gray-700">
+                  Quantidade
+                </th>
+                <th className="py-3 px-4 font-semibold text-gray-700">
+                  Total Item
+                </th>
+                <th className="py-3 px-4 border-b"></th>
               </tr>
             </thead>
-            <tbody className="w-fit">
-              {cartProducts.map((product: Product) => (
+            <tbody>
+              {cartItems.map((item: CartItem) => (
                 <ProductCartCard
-                  key={product.id}
-                  product={product}
-                  onRemoveClicked={() => onRemoveProduct(product.id)}
+                  key={item.id}
+                  productQuantity={item.quantity}
+                  product={getProductById(item.id)} // Passe o CartItem inteiro
+                  onRemoveClicked={removeItem}
+                  onMinusClicked={() => {
+                    updateItemQuantity(item.id, item.quantity - 1);
+                  }}
+                  onPlusClicked={() => {
+                    updateItemQuantity(item.id, item.quantity + 1);
+                  }} // Passe a função removeItem do contexto
+                  // onUpdateQuantity={updateItemQuantity} // Passe a função updateItemQuantity
                 />
               ))}
             </tbody>
           </table>
-          <div className="flex flex-col bg-white rounded p-4 pt-4 w-1/4 h-1/2">
-            <h1 className="text-black mb-4 text-2xl">Resumo</h1>{" "}
-            <div className="text-black">
-              <p>Subtotal: {formatPrice(totalPrice)}</p>
-              <p>Frete: {formatPrice(cartProducts.length * deliveryPrice)}</p>
-              <p className="font-bold mt-2">
-                Total: R${" "}
-                {formatPrice(totalPrice + cartProducts.length * deliveryPrice)}
-              </p>
-              <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded mt-4">
+          <div className="flex flex-col bg-white rounded p-6 shadow-lg w-full lg:w-1/4 h-fit mt-5 lg:mt-0">
+            <h1 className="text-gray-800 mb-5 text-2xl font-semibold border-b pb-3">
+              Resumo
+            </h1>
+            <div className="text-gray-700 space-y-2">
+              <div className="flex justify-between">
+                <span>Subtotal:</span>
+                <span>{formatPrice(subTotal)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Frete:</span>
+                <span>{formatPrice(shippingCost)}</span>
+              </div>
+              <div className="flex justify-between font-bold text-lg mt-4 pt-3 border-t">
+                <span>Total:</span>
+                <span>R$ {formatPrice(totalFinal)}</span>
+              </div>
+              <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded mt-6 transition-colors">
                 Finalizar Compra
               </button>
             </div>
@@ -111,14 +127,16 @@ function Cart() {
   }
 
   return (
-    <>
-      <Layout>
-        <div className="flex flex-col">
-          <h1 className="text-4xl text-white font-bold">Meu Carrinho</h1>
-          {renderCart()}
-        </div>
-      </Layout>
-    </>
+    <Layout>
+      {" "}
+      {/* Certifique-se que Layout usa CartProvider corretamente em algum nível acima */}
+      <div className="flex flex-col p-4 md:p-8">
+        <h1 className="text-3xl md:text-4xl text-white font-bold mb-6">
+          Meu Carrinho
+        </h1>
+        {renderCart()}
+      </div>
+    </Layout>
   );
 }
 

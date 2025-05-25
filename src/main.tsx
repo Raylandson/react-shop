@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import Cart from "./pages/Cart.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProductDetail from "./pages/ProducDetail.tsx";
+import { CartProvider } from "./contexts/CartContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   </StrictMode>
 );
