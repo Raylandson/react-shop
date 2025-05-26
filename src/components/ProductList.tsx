@@ -106,6 +106,8 @@ function ProductList({
   if (!products || products.length === 0) {
     return null;
   }
+  const scrollButtonClass: string =
+    "top-1/2 absolute transform -translate-y-1/2 z-20 bg-amber-600 bg-opacity-40 text-white p-2 rounded-full focus:outline-none transition-opacity active:bg-opacity-75 hover:shadow-xl hover:scale-105 hover:brightness-110";
 
   return (
     <div className="mb-10">
@@ -116,7 +118,7 @@ function ProductList({
       <div className="relative w-full">
         <button
           onClick={handleScrollLeft}
-          className="absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 z-20 bg-amber-600 bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 focus:outline-none transition-opacity active:bg-opacity-75"
+          className={"left-0 sm:left-2 " + scrollButtonClass}
           aria-label="Scroll Left"
         >
           <ChevronLeft size={28} />
@@ -133,7 +135,7 @@ function ProductList({
 
         <button
           onClick={handleManualScrollRight}
-          className="absolute right-0 sm:right-2 top-1/2 transform -translate-y-1/2 z-20 bg-amber-600 bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 focus:outline-none transition-opacity active:bg-opacity-75"
+          className={"right-0 sm:right-2 " + scrollButtonClass}
           aria-label="Scroll Right"
         >
           <ChevronRight size={28} />

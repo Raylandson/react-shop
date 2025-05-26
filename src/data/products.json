@@ -182,7 +182,7 @@
       {
         "id": "mem-1",
         "name": "Memória RAM Corsair Vengeance RGB 16GB",
-        "description": "Este kit de memória RAM Corsair Vengeance RGB (provavelmente 2x8GB DDR4) combina alta performance para jogos e multitarefas com iluminação RGB personalizável, ideal para quem busca estética e velocidade em seu setup.",
+        "description": "Este módulo de memória RAM Corsair Vengeance RGB 16GB DDR4 combina alta performance para jogos e multitarefas com iluminação RGB personalizável, ideal para quem busca estética e velocidade em seu setup.",
         "price": 299.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM Corsair Vengeance RGB 16GB.webp",
@@ -198,14 +198,14 @@
       {
         "id": "mem-2",
         "name": "Memória RAM Kingston Fury Beast 16GB",
-        "description": "A Kingston Fury Beast 16GB (geralmente um kit 2x8GB DDR4) é sinônimo de alta velocidade e confiabilidade, projetada para gamers e usuários que precisam de resposta rápida em suas aplicações diárias e multitarefas.",
+        "description": "A Kingston Fury Beast 16GB é sinônimo de alta velocidade e confiabilidade, projetada para gamers e usuários que precisam de resposta rápida em suas aplicações diárias e multitarefas.",
         "price": 279.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM Kingston Fury Beast 16GB.webp",
         "details": [
           { "Tipo": "DDR4" },
           { "Capacidade Total": "16GB" },
-          { "Configuração": "Kit 2x8GB" },
+          { "Configuração": "Módulo Único 1x16GB" },
           { "Velocidade Típica": "3200MHz" },
           { "Latência CAS Típica": "CL16" },
           { "Recurso": "Dissipador FURY Beast" }
@@ -230,7 +230,7 @@
       {
         "id": "mem-4",
         "name": "Memória RAM G.Skill Trident Z RGB 32GB",
-        "description": "Considerada uma memória premium, o kit G.Skill Trident Z RGB de 32GB (provavelmente 2x16GB DDR4) é a escolha de entusiastas e overclockers, oferecendo desempenho extremo para jogos em alta resolução, criação de conteúdo e sistemas com visual arrojado.",
+        "description": "Considerada uma memória premium, o kit G.Skill Trident Z RGB de 32GB (2x16GB DDR4) é a escolha de entusiastas e overclockers, oferecendo desempenho extremo para jogos em alta resolução, criação de conteúdo e sistemas com visual arrojado.",
         "price": 599.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM G.Skill Trident Z RGB 32GB.jpg",
@@ -246,7 +246,7 @@
       {
         "id": "mem-5",
         "name": "Memória RAM Corsair Dominator Platinum 32GB",
-        "description": "O kit Corsair Dominator Platinum RGB de 32GB (usualmente 2x16GB DDR4) oferece desempenho extremo e construção de altíssima qualidade, sendo ideal para workstations profissionais, edição de vídeo pesada e para os gamers mais exigentes que buscam estabilidade e potencial de overclock.",
+        "description": "O kit Corsair Dominator Platinum RGB de 32GB (2x16GB DDR4) oferece desempenho extremo e construção de altíssima qualidade, sendo ideal para workstations profissionais, edição de vídeo pesada e para os gamers mais exigentes que buscam estabilidade e potencial de overclock.",
         "price": 649.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM Corsair Dominator Platinum 32GB.webp",
@@ -278,14 +278,14 @@
       {
         "id": "mem-7",
         "name": "Memória RAM TeamGroup T-Force Vulcan Z 16GB",
-        "description": "O kit TeamGroup T-Force Vulcan Z 16GB (comumente 2x8GB DDR4) é uma ótima opção para gamers e profissionais, oferecendo um excelente equilíbrio entre performance, estabilidade e um design elegante com dissipador de calor eficiente.",
+        "description": "A memória TeamGroup T-Force Vulcan Z 16GB é uma ótima opção para gamers e profissionais, oferecendo um excelente equilíbrio entre performance, estabilidade e um design elegante com dissipador de calor eficiente.",
         "price": 269.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM TeamGroup T-Force Vulcan Z 16GB.jpg",
         "details": [
           { "Tipo": "DDR4" },
           { "Capacidade Total": "16GB" },
-          { "Configuração": "Kit 2x8GB" },
+          { "Configuração": "Módulo Único 1x16GB" },
           { "Velocidade Típica": "3200MHz" },
           { "Latência CAS Típica": "CL16" },
           { "Recurso": "Dissipador de Calor Reforçado" }
@@ -294,14 +294,14 @@
       {
         "id": "mem-8",
         "name": "Memória RAM Patriot Viper Steel 16GB",
-        "description": "Projetada para performance e estabilidade sob carga, a Patriot Viper Steel 16GB (tipicamente 2x8GB DDR4) é uma escolha sólida para gamers e usuários que buscam um sistema responsivo e confiável para longas sessões de uso intenso.",
+        "description": "Projetada para performance e estabilidade sob carga, a Patriot Viper Steel 16GB é uma escolha sólida para gamers e usuários que buscam um sistema responsivo e confiável para longas sessões de uso intenso.",
         "price": 259.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM Patriot Viper Steel 16GB.webp",
         "details": [
           { "Tipo": "DDR4" },
           { "Capacidade Total": "16GB" },
-          { "Configuração": "Kit 2x8GB" },
+          { "Configuração": "Módulo Único 1x16GB" },
           { "Velocidade Típica": "3600MHz" },
           { "Latência CAS Típica": "CL18" },
           { "Recurso": "Dissipador de Alumínio Alto Desempenho" }
@@ -310,14 +310,14 @@
       {
         "id": "mem-9",
         "name": "Memória RAM XPG Spectrix D60G 16GB",
-        "description": "Com um design inovador e uma área de iluminação RGB difusa que cobre grande parte do módulo, a XPG Spectrix D60G 16GB (geralmente 2x8GB DDR4) não só entrega performance para jogos, mas também um visual deslumbrante para setups personalizados.",
+        "description": "Com um design inovador e uma área de iluminação RGB difusa que cobre grande parte do módulo, a XPG Spectrix D60G 16GB não só entrega performance para jogos, mas também um visual deslumbrante para setups personalizados.",
         "price": 319.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM XPG Spectrix D60G 16GB.webp",
         "details": [
           { "Tipo": "DDR4" },
           { "Capacidade Total": "16GB" },
-          { "Configuração": "Kit 2x8GB" },
+          { "Configuração": "Módulo Único 1x16GB" },
           { "Velocidade Típica": "3200MHz" },
           { "Latência CAS Típica": "CL16" },
           { "Recurso": "Iluminação RGB Extensa" }
@@ -342,7 +342,7 @@
       {
         "id": "mem-11",
         "name": "Memória RAM Geil Evo Potenza 16GB",
-        "description": "O kit Geil Evo Potenza de 16GB (provavelmente 2x8GB DDR4) foi desenvolvido para entregar alta performance e estabilidade para gamers exigentes, com velocidades otimizadas e um dissipador de calor que auxilia na manutenção de temperaturas ideais.",
+        "description": "O kit Geil Evo Potenza de 16GB (2x8GB DDR4) foi desenvolvido para entregar alta performance e estabilidade para gamers exigentes, com velocidades otimizadas e um dissipador de calor que auxilia na manutenção de temperaturas ideais.",
         "price": 289.0,
         "category": "Memórias",
         "imageUrl": "products/memory/Memória RAM Geil Evo Potenza 16GB.webp",

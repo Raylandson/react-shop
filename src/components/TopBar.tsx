@@ -1,11 +1,6 @@
-// src/components/TopBar.tsx (ou caminho similar)
-
 import { ShoppingCart, User, Search, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-// A importação de CartItem aqui pode não ser mais necessária se você não a usa diretamente
-import { useCartContext } from "../contexts/CartContext"; // Ajuste o caminho se necessário
-
-// A função calculateItemCount local não é mais necessária aqui, pois usaremos getItemCount do contexto.
+import { useCartContext } from "../contexts/CartContext";
 
 export function TopBar() {
   const { getItemCount } = useCartContext();
@@ -16,10 +11,10 @@ export function TopBar() {
     <nav className="bg-fundo-principal text-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 ml-4.5">
             <Link
               to="/"
-              className="text-2xl font-bold text-acento-ciano hover:text-white transition-colors duration-200"
+              className="text-2xl font-bold text-amber-600 hover:text-white transition-colors duration-200"
             >
               React Store
             </Link>
@@ -38,28 +33,26 @@ export function TopBar() {
                 <Search className="h-5 w-5 text-gray-400" />
               </div>
             </div>
-            {/* Transformado em botão para ação que não é primariamente navegação */}
             <button
-              className="p-1 rounded-full hover:bg-gray-700 transition-colors duration-200"
-              aria-label="Ação de Teste no Perfil" // Ajuste o aria-label
+              className="p-2 rounded-full hover:bg-gray-700 transition-colors duration-200"
+              aria-label="Ação de Teste no Perfil"
             >
               <User size={22} />
             </button>
             <Link
               to="/cart"
-              className="relative p-1 rounded-full hover:bg-gray-700 transition-colors duration-200"
+              className="relative p-2 rounded-full hover:bg-gray-700 transition-colors duration-200"
               aria-label="Carrinho"
             >
               <ShoppingCart size={22} />
               {itemCountInCart > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-300 text-cyan-700 text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                   {itemCountInCart}
                 </span>
               )}
             </Link>
           </div>
 
-          {/* Botão Hamburger - Mobile */}
           <div className="md:hidden flex items-center">
             <Link
               to="/cart"

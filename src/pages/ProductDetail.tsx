@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import Layout from "../components/Layout";
 import { formatPrice, getProductById } from "../utils/productUtils";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useCartContext, type CartItem } from "../contexts/CartContext";
 
 interface Product {
   id: string;
@@ -24,6 +25,9 @@ function ProductDetail() {
   const id: string = searchParams.get("id") || "";
   const product = getProductById(id) as Product | undefined;
 
+  const { addItem } = useCartContext();
+  const navigate = useNavigate();
+
   const [isZooming, setIsZooming] = useState(false);
   const [transformOrigin, setTransformOrigin] = useState("center center");
   const imageContainerRef = useRef<HTMLDivElement>(null);
@@ -31,7 +35,6 @@ function ProductDetail() {
   const zoomLevel = 1.75;
 
   const handleMouseEnterImage = () => {
-    // Ativa o zoom quando o mouse entra
     setIsZooming(true);
   };
 
@@ -72,6 +75,17 @@ function ProductDetail() {
     );
   }
 
+  const handleAddToCart = () => {
+    const itemToAdd: CartItem = {
+      id: product.id,
+      quantity: 1,
+    };
+
+    addItem(itemToAdd, 1);
+
+    navigate("/cart");
+  };
+
   return (
     <Layout>
       <div className="text-white flex flex-col">
@@ -94,7 +108,6 @@ function ProductDetail() {
             />
           </div>
 
-          {/* O restante do seu código para detalhes do produto permanece o mesmo */}
           <div className=" w-1/3 space-y-4 bg-amber-50 text-[#1F2937] p-15 rounded flex flex-col h-auto">
             <div className="flex p-0 items-center mb-0">
               <Sparkles className="text-amber-600 w-4 h-4" />
@@ -123,7 +136,10 @@ function ProductDetail() {
               </div>
             </div>
             <div className="flex-1" />
-            <button className="rounded bg-[#FFC107] w-full p-1 hover:bg-amber-500 flex justify-center">
+            <button
+              onClick={handleAddToCart}
+              className="rounded bg-[#FFC107] w-full p-1 hover:bg-amber-600 flex justify-center"
+            >
               <div className="flex items-center gap-5">
                 <ShoppingCart className="mx-auto mb-2" />
                 <div className="flex flex-col items-center mb-2">
@@ -135,7 +151,6 @@ function ProductDetail() {
           </div>
         </div>
 
-        {/* Div de especificações - NÃO FOI ALTERADO */}
         <div className="ml-25 mt-15 text-center flex flex-col gap-10 mr-25">
           <h1 className="text-center font-bold text-4xl">Especificações</h1>
           <table className="w-full">
