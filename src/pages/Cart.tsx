@@ -1,22 +1,23 @@
+// No seu arquivo Cart.js
+
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import ProductCartCard from "../components/ProductCartCard";
-import { formatPrice, getProductById } from "../utils/productUtils";
+import { getProductById } from "../utils/productUtils";
 import { useCartContext, type CartItem } from "../contexts/CartContext";
+import CartSummary from "../components/CartSummary";
+
 function Cart() {
   const navigate = useNavigate();
   const { cartItems, removeItem, updateItemQuantity } = useCartContext();
 
-  const deliveryPricePerItemType: number = 15;
-
+  const deliveryPricePerItem: number = 15;
   const subTotal = cartItems.reduce(
     (acc, item) => acc + (getProductById(item.id)?.price ?? 0) * item.quantity,
     0
   );
-
   const shippingCost =
-    cartItems.length > 0 ? cartItems.length * deliveryPricePerItemType : 0;
-
+    cartItems.length > 0 ? cartItems.length * deliveryPricePerItem : 0;
   const totalFinal = subTotal + shippingCost;
 
   function renderCart() {
@@ -41,66 +42,51 @@ function Cart() {
         >
           {"< Continuar comprando"}
         </button>
-        <div className="overflow-x-auto flex flex-col lg:flex-row gap-5">
-          <table className="w-full lg:w-3/4 bg-white table-fixed rounded h-fit shadow-lg">
-            <colgroup>
-              <col style={{ width: "55%" }} />
-              <col style={{ width: "20%" }} />
-              <col style={{ width: "20%" }} />
-              <col style={{ width: "5%" }} />
-            </colgroup>
-            <thead>
-              <tr className="text-center border-b">
-                <th className="py-3 px-4 text-left font-semibold text-gray-700">
-                  Produto
-                </th>
-                <th className="py-3 px-4 font-semibold text-gray-700">
-                  Quantidade
-                </th>
-                <th className="py-3 px-4 font-semibold text-gray-700">
-                  Total Item
-                </th>
-                <th className="py-3 px-4 border-b"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.map((item: CartItem) => (
-                <ProductCartCard
-                  key={item.id}
-                  productQuantity={item.quantity}
-                  product={getProductById(item.id)}
-                  onRemoveClicked={removeItem}
-                  onMinusClicked={() => {
-                    updateItemQuantity(item.id, item.quantity - 1);
-                  }}
-                  onPlusClicked={() => {
-                    updateItemQuantity(item.id, item.quantity + 1);
-                  }}
-                />
-              ))}
-            </tbody>
-          </table>
-          <div className="flex flex-col bg-white rounded p-6 shadow-lg w-full lg:w-1/4 h-fit mt-5 lg:mt-0">
-            <h1 className="text-gray-800 mb-5 text-2xl font-semibold border-b pb-3">
-              Resumo
-            </h1>
-            <div className="text-gray-700 space-y-2">
-              <div className="flex justify-between">
-                <span>Subtotal:</span>
-                <span>{formatPrice(subTotal)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Frete:</span>
-                <span>{formatPrice(shippingCost)}</span>
-              </div>
-              <div className="flex justify-between font-bold text-lg mt-4 pt-3 border-t">
-                <span>Total:</span>
-                <span>R$ {formatPrice(totalFinal)}</span>
-              </div>
-              <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded mt-6 transition-colors">
-                Finalizar Compra
-              </button>
-            </div>
+        <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
+          <div className="w-full lg:flex-[3] overflow-x-auto">
+            {/* ... Tabela ... */}
+            <table className="min-w-full w-full bg-white table-auto overflow-hidden rounded shadow-lg">
+              <thead>
+                <tr className="text-center border-b border-gray-200">
+                  <th className="py-3 px-2 md:px-4 text-left font-semibold text-gray-700 text-sm">
+                    Produto
+                  </th>
+                  <th className="py-3 px-2 md:px-4 font-semibold text-gray-700 text-sm">
+                    Quantidade
+                  </th>
+                  <th className="py-3 px-2 md:px-4 font-semibold text-gray-700 text-sm hidden md:table-cell">
+                    Total Item
+                  </th>
+                  <th className="py-3 px-1 md:px-2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems.map((item: CartItem) => (
+                  <ProductCartCard
+                    key={item.id}
+                    productQuantity={item.quantity}
+                    product={getProductById(item.id)}
+                    onRemoveClicked={removeItem}
+                    onMinusClicked={() => {
+                      updateItemQuantity(item.id, item.quantity - 1);
+                    }}
+                    onPlusClicked={() => {
+                      updateItemQuantity(item.id, item.quantity + 1);
+                    }}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="w-full lg:flex-[1] bg-black rounded-lg shadow-xl flex flex-col flex-shrink-0">
+            <CartSummary
+              subTotal={subTotal}
+              shippingCost={shippingCost}
+              totalFinal={totalFinal}
+              onConfirm={() => navigate("/checkout")}
+              confirmLabel="Confirmar Pedido"
+            />
           </div>
         </div>
       </>
@@ -108,9 +94,10 @@ function Cart() {
   }
 
   return (
+    // ... (Layout)
     <Layout>
       <div className="flex flex-col p-4 md:p-8">
-        <h1 className="text-3xl md:text-4xl text-white font-bold mb-6">
+        <h1 className="text-3xl md:text-4xl text-white font-bold mb-6 md:mb-8">
           Meu Carrinho
         </h1>
         {renderCart()}
