@@ -6,6 +6,7 @@ import Cart from "./pages/Cart.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProductDetail from "./pages/ProductDetail.tsx";
 import { CartProvider } from "./contexts/CartContext.tsx";
+import FinalizePurchase from "./pages/FinalizePurchase.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/productdetail",
     element: <ProductDetail />,
+  },
+  {
+    path: "/finalizepurchase",
+    element: <FinalizePurchase />,
   },
 ]);
 

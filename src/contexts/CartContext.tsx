@@ -18,7 +18,7 @@ export interface CartContextType {
   addItem: (
     itemToAdd: Omit<CartItem, "quantity" | "imageUrl">,
     quantity?: number
-  ) => void; // Ajustado para Omit & {name, imageUrl?}
+  ) => void;
   removeItem: (itemId: string) => void;
   updateItemQuantity: (itemId: string, newQuantity: number) => void;
   clearCart: () => void;
@@ -39,17 +39,16 @@ export function useCartContext(): CartContextType {
 
 interface CartProviderProps {
   children: ReactNode;
-  initialItemsForDev?: CartItem[]; // Renomeado para clareza, opcional, usado se localStorage estiver vazio
+  initialItemsForDev?: CartItem[];
 }
 
-const CART_STORAGE_KEY = "meuEcommerceShoppingCart"; // Chave para o localStorage
+const CART_STORAGE_KEY = "meuEcommerceShoppingCart";
 
 export function CartProvider({
   children,
   initialItemsForDev = [],
 }: CartProviderProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    // 1. Tenta carregar do localStorage na inicialização
     try {
       const localData = localStorage.getItem(CART_STORAGE_KEY);
       if (localData) {
@@ -58,7 +57,6 @@ export function CartProvider({
     } catch (error) {
       console.error("Erro ao carregar o carrinho do localStorage:", error);
     }
-    // Se não houver nada no localStorage ou ocorrer um erro, usa os initialItemsForDev (ou um array vazio)
     return initialItemsForDev;
   });
 
@@ -108,7 +106,7 @@ export function CartProvider({
   };
 
   const clearCart = () => {
-    setCartItems([]); // Isso também vai limpar o localStorage por causa do useEffect
+    setCartItems([]);
   };
 
   const getItemCount = () => {

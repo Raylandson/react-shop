@@ -1,41 +1,23 @@
-// src/pages/Cart.tsx ou similar
-
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
-import ProductCartCard from "../components/ProductCartCard"; // Você precisará adaptar este componente
+import ProductCartCard from "../components/ProductCartCard";
 import { formatPrice, getProductById } from "../utils/productUtils";
-import { useCartContext, type CartItem } from "../contexts/CartContext"; // Importe do seu contexto
-
+import { useCartContext, type CartItem } from "../contexts/CartContext";
 function Cart() {
   const navigate = useNavigate();
-  const {
-    cartItems,
-    removeItem,
-    updateItemQuantity, // Usaremos para ProductCartCard
-    // getItemCount, // Se precisar do total de unidades
-    // clearCart, // Se tiver um botão de limpar carrinho
-  } = useCartContext();
+  const { cartItems, removeItem, updateItemQuantity } = useCartContext();
 
-  const deliveryPricePerItemType: number = 15; // Ou como você calcular o frete
+  const deliveryPricePerItemType: number = 15;
 
-  // Calcula o subtotal dos produtos no carrinho
   const subTotal = cartItems.reduce(
     (acc, item) => acc + (getProductById(item.id)?.price ?? 0) * item.quantity,
     0
   );
 
-  // Calcula o frete (exemplo: por tipo de item diferente no carrinho)
-  // Se o carrinho estiver vazio, o frete é 0
   const shippingCost =
     cartItems.length > 0 ? cartItems.length * deliveryPricePerItemType : 0;
-  // Ou, se for um valor fixo quando há itens:
-  // const shippingCost = cartItems.length > 0 ? deliveryPrice : 0;
 
   const totalFinal = subTotal + shippingCost;
-
-  // A função onRemoveProduct agora usa 'removeItem' do contexto
-  // Esta função pode ser passada diretamente para ProductCartCard ou chamada aqui
-  // Por simplicidade, passaremos 'removeItem' diretamente.
 
   function renderCart() {
     if (cartItems.length === 0) {
@@ -62,10 +44,10 @@ function Cart() {
         <div className="overflow-x-auto flex flex-col lg:flex-row gap-5">
           <table className="w-full lg:w-3/4 bg-white table-fixed rounded h-fit shadow-lg">
             <colgroup>
-              <col style={{ width: "55%" }} /> {/* Produto */}
-              <col style={{ width: "20%" }} /> {/* Quantidade */}
-              <col style={{ width: "20%" }} /> {/* Preço Total do Item */}
-              <col style={{ width: "5%" }} /> {/* Remover */}
+              <col style={{ width: "55%" }} />
+              <col style={{ width: "20%" }} />
+              <col style={{ width: "20%" }} />
+              <col style={{ width: "5%" }} />
             </colgroup>
             <thead>
               <tr className="text-center border-b">
@@ -86,15 +68,14 @@ function Cart() {
                 <ProductCartCard
                   key={item.id}
                   productQuantity={item.quantity}
-                  product={getProductById(item.id)} // Passe o CartItem inteiro
+                  product={getProductById(item.id)}
                   onRemoveClicked={removeItem}
                   onMinusClicked={() => {
                     updateItemQuantity(item.id, item.quantity - 1);
                   }}
                   onPlusClicked={() => {
                     updateItemQuantity(item.id, item.quantity + 1);
-                  }} // Passe a função removeItem do contexto
-                  // onUpdateQuantity={updateItemQuantity} // Passe a função updateItemQuantity
+                  }}
                 />
               ))}
             </tbody>
@@ -128,8 +109,6 @@ function Cart() {
 
   return (
     <Layout>
-      {" "}
-      {/* Certifique-se que Layout usa CartProvider corretamente em algum nível acima */}
       <div className="flex flex-col p-4 md:p-8">
         <h1 className="text-3xl md:text-4xl text-white font-bold mb-6">
           Meu Carrinho

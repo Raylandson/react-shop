@@ -56,7 +56,7 @@ function ProductList({
       scrollRight,
       autoScrollIntervalDelay
     );
-  }, [autoScrollIntervalDelay, scrollRight, stopAutoScroll]); // Dependências
+  }, [autoScrollIntervalDelay, scrollRight, stopAutoScroll]);
 
   useEffect(() => {
     if (
@@ -81,7 +81,7 @@ function ProductList({
     restartTimeoutIdRef.current = window.setTimeout(() => {
       startAutoScroll();
     }, restartAutoScrollDelay);
-  }, [restartAutoScrollDelay, startAutoScroll, stopAutoScroll]); // Dependências
+  }, [restartAutoScrollDelay, startAutoScroll, stopAutoScroll]);
 
   const handleScrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -100,7 +100,7 @@ function ProductList({
         behavior: "smooth",
       });
     }
-    handleManualScrollAction(); // Pausa e agenda reinício do automático
+    handleManualScrollAction();
   };
 
   if (!products || products.length === 0) {
