@@ -36,19 +36,11 @@ const CartSummary: React.FC<CartSummaryProps> = ({
 
   return (
     <>
-      {/* 1. Selo SSL */}
-      {/* - rounded-t-lg para combinar com o rounded-lg do pai.
-          - removido shadow-md (sombra agora é do pai).
-          - flex-shrink-0 para não encolher. */}
       <div className="bg-green-700 text-white p-3 rounded-t-lg flex items-center justify-center text-sm flex-shrink-0">
         <ShieldCheck className="w-5 h-5 mr-2" />
         Site seguro protegido com SSL
       </div>
 
-      {/* 2. Resumo de Preços */}
-      {/* - removido h-fit (desnecessário com flex-shrink-0).
-          - flex-shrink-0 para não encolher.
-          - border-b para separar da próxima seção se ambas forem bg-white. */}
       <div className="flex flex-col bg-white p-6 w-full flex-shrink-0 border-b border-gray-200">
         <h1 className="text-gray-800 mb-5 text-2xl font-semibold border-b border-gray-300 pb-3">
           Resumo
@@ -77,16 +69,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         </div>
       </div>
 
-      {/* 3. Informações Adicionais - Esta seção vai crescer */}
-      {/* - rounded-b-lg para combinar com o rounded-lg do pai.
-          - removido shadow-lg, mt-0, border-t.
-          - flex-grow para ocupar o espaço vertical.
-          - flex flex-col para usar mt-auto no filho.
-          - h-auto é removido pois flex-grow cuida da altura. */}
       <div
         className={
           "bg-white rounded-b-lg p-6 w-full not-only-of-type:flex flex-col" +
-          (growing ? " flex-grow h-auto" : "")
+          (growing ? " flex-grow h-auto pb-10" : "")
         }
       >
         {/* Conteúdo superior */}

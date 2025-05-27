@@ -95,7 +95,7 @@ function FinalizePurchase() {
               </div>
             </div>
 
-            <div className="w-full lg:w-2/5 order-1 lg:order-2 bg-green-700 rounded-lg shadow-xl h-full">
+            <div className="w-full lg:w-2/5 order-1 lg:order-2 h-auto">
               <CartSummary
                 subTotal={subTotal}
                 shippingCost={shippingCost}
