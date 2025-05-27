@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Adicionado useEffect
 import Layout from "../components/Layout";
 import CartSummary from "../components/CartSummary";
 import { ShieldCheck, CreditCard, CheckCircle, QrCode } from "lucide-react";
@@ -6,17 +6,26 @@ import { getProductById } from "../utils/productUtils";
 import { useCartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 
+const PIX_TIMER_DURATION = 10; // Segundos
+
 function FinalizePurchase() {
   const [currentStep, setCurrentStep] = useState("review");
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("pix");
   const navigate = useNavigate();
 
+  // Estados do Cartão
   const [cardNumber, setCardNumber] = useState("");
   const [cvc, setCvc] = useState("");
   const [cardNumberError, setCardNumberError] = useState("");
   const [cvcError, setCvcError] = useState("");
+  const [isCardPaymentConfirmed, setIsCardPaymentConfirmed] = useState(false);
 
-  const { cartItems } = useCartContext();
+  // Estados do PIX
+  const [pixTimer, setPixTimer] = useState(PIX_TIMER_DURATION);
+  const [isPixProcessing, setIsPixProcessing] = useState(false);
+  const [isPixConfirmed, setIsPixConfirmed] = useState(false);
+
+  const { cartItems, clearCart } = useCartContext();
 
   const deliveryPricePerItem: number = 15;
   const subTotal = cartItems.reduce(
@@ -27,10 +36,40 @@ function FinalizePurchase() {
     cartItems.length > 0 ? cartItems.length * deliveryPricePerItem : 0;
   const totalFinal = subTotal + shippingCost;
 
+  // Efeito para o timer do PIX
+  useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval> | undefined = undefined;
+
+    if (isPixProcessing && pixTimer > 0) {
+      intervalId = setInterval(() => {
+        setPixTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else if (isPixProcessing && pixTimer === 0) {
+      // Timer zerou, simular confirmação
+      clearCart();
+      setIsPixProcessing(false);
+      setIsPixConfirmed(true);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [isPixProcessing, pixTimer, clearCart]);
+
   const handleProceedToPayment = () => {
     if (selectedPaymentMethod === "pix") {
+      setPixTimer(PIX_TIMER_DURATION); // Reseta o timer
+      setIsPixProcessing(true); // Inicia o "processamento"
+      setIsPixConfirmed(false); // Garante que a tela de confirmação não está ativa
       setCurrentStep("pixPayment");
     } else if (selectedPaymentMethod === "creditCard") {
+      setIsCardPaymentConfirmed(false);
+      setCardNumber("");
+      setCvc("");
+      setCardNumberError("");
+      setCvcError("");
       setCurrentStep("creditCardPayment");
     }
   };
@@ -60,16 +99,23 @@ function FinalizePurchase() {
     }
 
     if (isValid) {
-      // alert(
-      //   `Pagamento com cartão finalizado (simulação)!\nCartão: **** **** **** ${cleanedCardNumber.slice(
-      //     -4
-      //   )}\nCVC: ***`
-      // );
-
-      setCardNumber("");
-      setCvc("");
-      navigate("/");
+      clearCart();
+      setIsCardPaymentConfirmed(true);
     }
+  };
+
+  const handleReturnToHomeAndReset = () => {
+    navigate("/");
+    setCurrentStep("review");
+    setSelectedPaymentMethod("pix");
+    setIsCardPaymentConfirmed(false);
+    setIsPixConfirmed(false);
+    setIsPixProcessing(false);
+    setPixTimer(PIX_TIMER_DURATION);
+    setCardNumber("");
+    setCvc("");
+    setCardNumberError("");
+    setCvcError("");
   };
 
   const renderStepContent = () => {
@@ -77,13 +123,11 @@ function FinalizePurchase() {
       case "review":
         return (
           <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-8">
-            {/* Coluna da Esquerda: Seleção de Pagamento */}
             <div className="flex-1 bg-gray-50 p-6 md:p-8 rounded-lg shadow-lg order-2 lg:order-1 flex flex-col">
               <div className="flex items-center text-xl md:text-2xl font-semibold text-gray-700 mb-6">
                 <CreditCard className="w-7 h-7 mr-3 text-sky-600" />
                 Escolha a forma de pagamento
               </div>
-
               <section className="mb-8">
                 <div className="space-y-4">
                   <button
@@ -118,7 +162,6 @@ function FinalizePurchase() {
                   </button>
                 </div>
               </section>
-              {/* Botões de ação com mt-auto para empurrar para baixo */}
               <div className="flex flex-col gap-4 mt-auto">
                 <button
                   onClick={handleProceedToPayment}
@@ -130,14 +173,12 @@ function FinalizePurchase() {
                   onClick={() => {
                     navigate("/cart");
                   }}
-                  // Estilo de botão secundário para "Voltar para o Carrinho"
                   className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-md transition-colors text-lg shadow-md"
                 >
                   Voltar para o Carrinho
                 </button>
               </div>
             </div>
-
             <div className="w-full lg:w-2/5 order-1 lg:order-2 bg-white rounded-lg shadow-xl flex flex-col h-full">
               <CartSummary
                 subTotal={subTotal}
@@ -150,8 +191,27 @@ function FinalizePurchase() {
         );
 
       case "pixPayment":
+        if (isPixConfirmed) {
+          return (
+            <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md flex flex-col items-center text-center">
+              <CheckCircle className="w-20 h-20 text-green-500 mb-6" />
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                Pagamento PIX Confirmado!
+              </h2>
+              <p className="text-gray-600 text-lg mb-8">
+                Seu pedido foi processado com sucesso.
+              </p>
+              <button
+                onClick={handleReturnToHomeAndReset}
+                className="w-full bg-amber-500 hover:bg-amber-600 text-sky-950 font-semibold px-6 py-3 rounded-md transition-colors text-lg shadow-md"
+              >
+                Voltar para a Home
+              </button>
+            </div>
+          );
+        }
         return (
-          <div className="bg-white rounded shadow-md p-8 w-full max-w-4xl mb-6">
+          <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-4xl mb-6">
             <div className="flex items-center mb-6 gap-2 justify-center">
               <ShieldCheck className="w-10 h-10 text-green-500" />
               <h1 className="text-2xl font-bold text-gray-800">
@@ -165,9 +225,14 @@ function FinalizePurchase() {
                   className="w-64 h-64 mb-4"
                   alt="Imagem do qr code"
                 />
-                <p className="text-gray-700 text-lg text-center">
+                <p className="text-gray-700 text-lg text-center mb-2">
                   Escaneie o QR Code para realizar o pagamento.
                 </p>
+                {isPixProcessing && (
+                  <p className="text-sky-600 text-md font-semibold">
+                    Aguardando confirmação: {pixTimer}s
+                  </p>
+                )}
               </div>
               <div className="flex flex-col flex-1 md:pl-8 md:border-l md:border-gray-200 text-left">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
@@ -182,7 +247,7 @@ function FinalizePurchase() {
                 <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
                   <p className="font-semibold">
                     {`O seu QR Code é válido até ${new Date(
-                      Date.now() + 30 * 60 * 1000
+                      Date.now() + 30 * 60 * 1000 // Validade do QR Code (ex: 30 min)
                     ).toLocaleString("pt-BR", {
                       day: "2-digit",
                       month: "2-digit",
@@ -193,15 +258,19 @@ function FinalizePurchase() {
                     })}`}
                   </p>
                   <p>
-                    A confirmação do pagamento será realizada em até 30 minutos.
+                    A confirmação do pagamento será realizada em alguns
+                    instantes.
                   </p>
                 </div>
               </div>
             </div>
             <div className="mt-8 text-center">
               <button
-                onClick={() => setCurrentStep("review")}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-3 rounded transition-colors mr-4"
+                onClick={() => {
+                  setIsPixProcessing(false);
+                  setCurrentStep("review");
+                }}
+                className="w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-md transition-colors text-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Alterar forma de pagamento
               </button>
@@ -210,13 +279,31 @@ function FinalizePurchase() {
         );
 
       case "creditCardPayment":
+        if (isCardPaymentConfirmed) {
+          return (
+            <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md flex flex-col items-center text-center">
+              <CheckCircle className="w-20 h-20 text-green-500 mb-6" />
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                Pagamento Confirmado!
+              </h2>
+              <p className="text-gray-600 text-lg mb-8">
+                Obrigado pela sua compra. Seu pedido foi processado com sucesso.
+              </p>
+              <button
+                onClick={handleReturnToHomeAndReset}
+                className="w-full bg-amber-500 hover:bg-amber-600 text-sky-950 font-semibold px-6 py-3 rounded-md transition-colors text-lg shadow-md"
+              >
+                Voltar para a Home
+              </button>
+            </div>
+          );
+        }
         return (
           <div className="bg-white rounded-lg shadow-xl p-6 md:p-8 w-full max-w-lg flex flex-col items-center">
             <div className="flex items-center text-xl md:text-2xl font-semibold text-gray-700 mb-8">
               <CreditCard className="w-8 h-8 mr-3 text-sky-600" />
               Pagamento com Cartão de Crédito
             </div>
-
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -250,7 +337,6 @@ function FinalizePurchase() {
                   <p className="text-red-500 text-xs mt-1">{cardNumberError}</p>
                 )}
               </div>
-
               <div>
                 <label
                   htmlFor="cvc"
@@ -278,7 +364,6 @@ function FinalizePurchase() {
                   <p className="text-red-500 text-xs mt-1">{cvcError}</p>
                 )}
               </div>
-
               <div className="flex flex-col space-y-4 pt-4">
                 <button
                   type="submit"
@@ -312,9 +397,11 @@ function FinalizePurchase() {
   if (currentStep === "review") {
     pageTitle = "Detalhes Finais";
   } else if (currentStep === "pixPayment") {
-    pageTitle = "Pagamento com PIX";
+    pageTitle = isPixConfirmed ? "Pedido Confirmado" : "Pagamento com PIX";
   } else if (currentStep === "creditCardPayment") {
-    pageTitle = "Pagamento com Cartão";
+    pageTitle = isCardPaymentConfirmed
+      ? "Pedido Confirmado"
+      : "Pagamento com Cartão";
   }
 
   return (
