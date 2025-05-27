@@ -1,5 +1,3 @@
-// No seu arquivo CartContext.tsx
-
 import {
   createContext,
   useContext,

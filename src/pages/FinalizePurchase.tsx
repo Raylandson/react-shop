@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // Adicionado useEffect
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import CartSummary from "../components/CartSummary";
 import { ShieldCheck, CreditCard, CheckCircle, QrCode } from "lucide-react";
@@ -6,21 +6,19 @@ import { getProductById } from "../utils/productUtils";
 import { useCartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 
-const PIX_TIMER_DURATION = 10; // Segundos
+const PIX_TIMER_DURATION = 10;
 
 function FinalizePurchase() {
   const [currentStep, setCurrentStep] = useState("review");
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("pix");
   const navigate = useNavigate();
 
-  // Estados do Cartão
   const [cardNumber, setCardNumber] = useState("");
   const [cvc, setCvc] = useState("");
   const [cardNumberError, setCardNumberError] = useState("");
   const [cvcError, setCvcError] = useState("");
   const [isCardPaymentConfirmed, setIsCardPaymentConfirmed] = useState(false);
 
-  // Estados do PIX
   const [pixTimer, setPixTimer] = useState(PIX_TIMER_DURATION);
   const [isPixProcessing, setIsPixProcessing] = useState(false);
   const [isPixConfirmed, setIsPixConfirmed] = useState(false);
@@ -36,7 +34,6 @@ function FinalizePurchase() {
     cartItems.length > 0 ? cartItems.length * deliveryPricePerItem : 0;
   const totalFinal = subTotal + shippingCost;
 
-  // Efeito para o timer do PIX
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval> | undefined = undefined;
 
@@ -45,7 +42,6 @@ function FinalizePurchase() {
         setPixTimer((prevTimer) => prevTimer - 1);
       }, 1000);
     } else if (isPixProcessing && pixTimer === 0) {
-      // Timer zerou, simular confirmação
       clearCart();
       setIsPixProcessing(false);
       setIsPixConfirmed(true);
@@ -60,9 +56,9 @@ function FinalizePurchase() {
 
   const handleProceedToPayment = () => {
     if (selectedPaymentMethod === "pix") {
-      setPixTimer(PIX_TIMER_DURATION); // Reseta o timer
-      setIsPixProcessing(true); // Inicia o "processamento"
-      setIsPixConfirmed(false); // Garante que a tela de confirmação não está ativa
+      setPixTimer(PIX_TIMER_DURATION);
+      setIsPixProcessing(true);
+      setIsPixConfirmed(false);
       setCurrentStep("pixPayment");
     } else if (selectedPaymentMethod === "creditCard") {
       setIsCardPaymentConfirmed(false);

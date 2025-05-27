@@ -1,5 +1,3 @@
-// No seu arquivo Cart.js
-
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import ProductCartCard from "../components/ProductCartCard";
@@ -94,7 +92,6 @@ function Cart() {
   }
 
   return (
-    // ... (Layout)
     <Layout>
       <div className="flex flex-col p-4 md:p-8">
         <h1 className="text-3xl md:text-4xl text-white font-bold mb-6 md:mb-8">
