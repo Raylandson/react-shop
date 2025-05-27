@@ -1,9 +1,9 @@
-import React, { useState } from "react"; // Adicionado React para React.MouseEvent
+import React, { useState } from "react";
 import { ShoppingCart } from "lucide-react";
-import type { Product } from "../types/Product"; // Seu tipo Product
+import type { Product } from "../types/Product";
 import { formatPrice } from "../utils/productUtils";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
-import { useCartContext, type CartItem } from "../contexts/CartContext"; // 1. Importe o hook do contexto
+import { useCartContext, type CartItem } from "../contexts/CartContext";
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +12,7 @@ interface ProductCardProps {
 function ProductCard({ product }: ProductCardProps) {
   const navigate: NavigateFunction = useNavigate();
   const [hover, setHover] = useState(false);
+  const [isCartClicked, setIsCartClicked] = useState(false);
   const { addItem } = useCartContext();
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,6 +24,11 @@ function ProductCard({ product }: ProductCardProps) {
     };
 
     addItem(itemToAdd, 1);
+
+    setIsCartClicked(true);
+    setTimeout(() => {
+      setIsCartClicked(false);
+    }, 200);
 
     console.log(`${product.name} adicionado ao carrinho!`);
   };
@@ -36,9 +42,9 @@ function ProductCard({ product }: ProductCardProps) {
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className={`flex flex-col rounded-lg bg-white p-4 m-4 h-80 w-64 flex-shrink-0 cursor-pointer shadow-md transition-all duration-200 brightness-80
+      className={`flex flex-col rounded-lg bg-white p-4 m-4 h-80 w-64 flex-shrink-0 cursor-pointer shadow-md transition-all duration-200 brightness-90
         ${hover ? "hover:shadow-xl hover:scale-105 hover:brightness-100" : ""}
-      `}
+      `} // Ajustei o brightness inicial para 90 para o hover ter mais impacto
     >
       <img
         src={product.imageUrl}
@@ -52,22 +58,27 @@ function ProductCard({ product }: ProductCardProps) {
         {" "}
         <div>
           <p className="text-lime-600 font-bold text-left">
-            R$ {formatPrice(product.price)} à vista{" "}
+            {formatPrice(product.price)} à vista{" "}
           </p>
           <p className="text-sm text-gray-500 text-left">
-            ou 12x de R$ {formatPrice(product.price / 12)}
+            ou 12x de {formatPrice(product.price / 12)}
           </p>
         </div>
         <button
           onClick={handleAddToCart}
-          className={`p-2 rounded-full transition-all duration-200 ease-in-out ${
-            hover
-              ? "opacity-100 visible hover:bg-gray-100"
-              : "opacity-0 invisible"
-          }`}
+          className={`p-2 rounded-full transition-all duration-200 ease-in-out transform
+            ${
+              hover
+                ? "opacity-100 visible scale-100"
+                : "opacity-0 invisible scale-90"
+            }
+            ${
+              isCartClicked ? "scale-125" : hover ? "scale-100" : "scale-90"
+            } // Efeito de clique
+            hover:bg-gray-100`} // Hover do botão
           aria-label={`Adicionar ${product.name} ao carrinho`}
         >
-          <ShoppingCart className="h-6 w-6 text-sky-950 hover:text-sky-400" />{" "}
+          <ShoppingCart className="h-6 w-6 text-sky-950" />{" "}
         </button>
       </div>
     </div>

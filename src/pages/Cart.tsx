@@ -79,7 +79,7 @@ function Cart() {
             </table>
           </div>
 
-          <div className="w-full lg:flex-[1] bg-black rounded-lg shadow-xl flex flex-col flex-shrink-0">
+          <div className="w-full lg:flex-[1] rounded-lg flex flex-col flex-shrink-0">
             <CartSummary
               subTotal={subTotal}
               shippingCost={shippingCost}
