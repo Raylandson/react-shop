@@ -22,6 +22,9 @@ function FinalizePurchase() {
   const [pixTimer, setPixTimer] = useState(PIX_TIMER_DURATION);
   const [isPixProcessing, setIsPixProcessing] = useState(false);
   const [isPixConfirmed, setIsPixConfirmed] = useState(false);
+  const [qrCodeExpiryTimestamp, setQrCodeExpiryTimestamp] = useState<
+    number | null
+  >(null);
 
   const { cartItems, clearCart } = useCartContext();
 
@@ -59,6 +62,7 @@ function FinalizePurchase() {
       setPixTimer(PIX_TIMER_DURATION);
       setIsPixProcessing(true);
       setIsPixConfirmed(false);
+      setQrCodeExpiryTimestamp(Date.now() + 30 * 60 * 1000);
       setCurrentStep("pixPayment");
     } else if (selectedPaymentMethod === "creditCard") {
       setIsCardPaymentConfirmed(false);
@@ -108,6 +112,7 @@ function FinalizePurchase() {
     setIsPixConfirmed(false);
     setIsPixProcessing(false);
     setPixTimer(PIX_TIMER_DURATION);
+    setQrCodeExpiryTimestamp(null);
     setCardNumber("");
     setCvc("");
     setCardNumberError("");
@@ -241,18 +246,20 @@ function FinalizePurchase() {
                   <li>Pronto! Você verá a confirmação do pagamento</li>
                 </ol>
                 <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-                  <p className="font-semibold">
-                    {`O seu QR Code é válido até ${new Date(
-                      Date.now() + 30 * 60 * 1000 // Validade do QR Code (ex: 30 min)
-                    ).toLocaleString("pt-BR", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                    })}`}
-                  </p>
+                  {qrCodeExpiryTimestamp && (
+                    <p className="font-semibold">
+                      {`O seu QR Code é válido até ${new Date(
+                        qrCodeExpiryTimestamp
+                      ).toLocaleString("pt-BR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })}`}
+                    </p>
+                  )}
                   <p>
                     A confirmação do pagamento será realizada em alguns
                     instantes.
