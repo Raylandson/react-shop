@@ -1,4 +1,4 @@
-import { ShoppingCart, Menu } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../contexts/CartContext";
 
@@ -31,29 +31,6 @@ export function TopBar() {
               </span>
             )}
           </Link>
-        </div>
-
-        <div className="md:hidden flex items-center">
-          <Link
-            to="/cart"
-            className="relative p-1 mr-2 rounded-full hover:bg-gray-700 transition-colors duration-200"
-            aria-label="Carrinho"
-          >
-            <ShoppingCart size={22} />
-            {itemCountInCart > 0 && (
-              <span className="absolute -top-1 -right-1 bg-amber-300 text-cyan-700 text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                {itemCountInCart}
-              </span>
-            )}
-          </Link>
-          <button
-            type="button"
-            className="p-1 rounded-md hover:text-acento-ciano hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors duration-200"
-            aria-controls="mobile-menu"
-          >
-            <span className="sr-only">Abrir menu principal</span>
-            {<Menu size={24} />}
-          </button>
         </div>
       </div>
     </nav>
